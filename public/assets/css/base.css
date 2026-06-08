@@ -28,6 +28,15 @@
         --marker-y: 0px;
         --card-parallax-x: 0px;
         --card-parallax-y: 0px;
+        --mobile-gyro-x: 0px;
+        --mobile-gyro-y: 0px;
+        --mobile-marker-x: 0px;
+        --mobile-marker-y: 0px;
+        --mobile-card-x: 0px;
+        --mobile-card-y: 0px;
+        --mobile-tilt-x: 0deg;
+        --mobile-tilt-y: 0deg;
+        --scroll-glitch-x: 0px;
       }
 
       *,
@@ -64,8 +73,10 @@
           linear-gradient(90deg, rgba(109, 150, 181, 0.055) 1px, transparent 1px);
         background-size: 48px 48px;
         background-position:
-          var(--parallax-x) var(--parallax-y),
-          var(--parallax-x) var(--parallax-y);
+          calc(var(--parallax-x) + var(--mobile-gyro-x))
+            calc(var(--parallax-y) + var(--mobile-gyro-y)),
+          calc(var(--parallax-x) + var(--mobile-gyro-x))
+            calc(var(--parallax-y) + var(--mobile-gyro-y));
         mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
       }
 

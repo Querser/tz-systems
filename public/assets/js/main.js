@@ -7,6 +7,7 @@ import {
 import { setupHiddenAdminEntry } from "./admin-entry.js";
 import { setupPointerEffects } from "./effects.js";
 import { setupSystemInterface, setupTechnicalCursor } from "./interface-effects.js";
+import { setupMobileEffects } from "./mobile-effects.js";
 import { createProjectModal } from "./modal.js";
 import { loadProjects, renderProjectError, renderProjects } from "./projects.js";
 import { getSavedLanguage, saveLanguage } from "./utils.js";
@@ -119,6 +120,7 @@ try {
 
 applyLanguage(currentLanguage);
 setupRevealAnimations(reducedMotion);
+setupMobileEffects({ reducedMotion });
 setupTelemetry(reducedMotion, renderTelemetryValue);
 setupProcessFade(reducedMotion);
 setupPointerEffects(reducedMotion);

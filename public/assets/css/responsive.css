@@ -325,7 +325,15 @@
         }
 
         .graph-node:is(:hover, :focus-visible, .is-node-active) .graph-node-core,
-        .mobile-architecture-node:is(:hover, :focus-visible) {
+        .graph-node.active-mobile .graph-node-core,
+        .mobile-architecture-node:is(:hover, :focus-visible),
+        .mobile-architecture-node.active-mobile {
+          transform: none;
+        }
+
+        .tilt-card.active-mobile,
+        .process-step.active-mobile {
+          scale: 1;
           transform: none;
         }
 
@@ -334,6 +342,9 @@
         .glitch-title::after,
         .graph-flow,
         .node-activity,
+        .mobile-data-packet,
+        .cyber-ripple,
+        .glow-card::after,
         .projects-section::before {
           animation: none !important;
         }
@@ -353,5 +364,10 @@
 
         .technical-cursor.is-interactive .technical-cursor-ring {
           animation: none;
+        }
+
+        body.scroll-velocity-glitch main {
+          transform: none;
+          text-shadow: none;
         }
       }

@@ -174,7 +174,11 @@
         height: 12px;
         opacity: 0.18;
         pointer-events: none;
-        transform: translate3d(var(--marker-x), var(--marker-y), 0);
+        transform: translate3d(
+          calc(var(--marker-x) + var(--mobile-marker-x)),
+          calc(var(--marker-y) + var(--mobile-marker-y)),
+          0
+        );
       }
 
       .calibration-marker::before,
@@ -343,6 +347,8 @@
           linear-gradient(rgba(123, 168, 201, 0.05) 1px, transparent 1px),
           linear-gradient(90deg, rgba(123, 168, 201, 0.05) 1px, transparent 1px);
         background-size: 32px 32px;
+        transform: translate3d(var(--mobile-gyro-x), var(--mobile-gyro-y), 0) scale(1.035);
+        transition: transform 160ms ease-out;
       }
 
       .system-map svg {
@@ -461,13 +467,14 @@
         fill: none;
         stroke: var(--accent);
         stroke-width: 2.2;
-        stroke-dasharray: 8 92;
+        stroke-dasharray: 6 15 2 77;
         stroke-dashoffset: 100;
         stroke-linecap: round;
         opacity: 0.86;
         filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.72));
         vector-effect: non-scaling-stroke;
-        animation: edge-flow 3.8s linear infinite;
+        animation: edge-flow 3.45s linear infinite;
+        will-change: stroke-dashoffset;
       }
 
       .graph-flow.delay-1 {

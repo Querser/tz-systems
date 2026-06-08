@@ -37,6 +37,9 @@ export function setupTelemetry(reducedMotion, renderValue) {
 
   const showTargets = () => {
     counters.forEach((counter) => renderValue(counter, Number(counter.dataset.target)));
+    document.dispatchEvent(
+      new CustomEvent("portfolio:telemetry-ready", { detail: { counters } })
+    );
   };
 
   if (reducedMotion || !("IntersectionObserver" in window)) {
