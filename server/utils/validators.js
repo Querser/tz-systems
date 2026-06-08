@@ -39,58 +39,35 @@ function readStringArray(value, field, { maxItems, maxLength }) {
   return value.map((item) => readText(item, field, { required: true, maxLength }));
 }
 
-function readUrl(value, field) {
-  const url = readText(value, field, { maxLength: 500 }) || "#";
-  if (url === "#" || url.startsWith("/") || url.startsWith("placeholder:")) {
-    return url;
-  }
-
-  try {
-    const parsed = new URL(url);
-    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
-      return url;
-    }
-  } catch {
-    // The common validation error below is safer than exposing parser details.
-  }
-  throw new HttpError(400, `Поле «${field}» должно содержать безопасный URL.`);
-}
-
-function readMetrics(value) {
-  if (!Array.isArray(value) || value.length > 12) {
-    throw new HttpError(400, "Метрики имеют неверный формат.");
-  }
-
-  return value.map((metric) => {
-    if (!metric || typeof metric !== "object" || Array.isArray(metric)) {
-      throw new HttpError(400, "Метрика имеет неверный формат.");
-    }
-    return {
-      value: readText(metric.value, "Значение метрики", { required: true, maxLength: 40 }),
-      label: readLocalized(metric.label, "Подпись метрики", 120),
-    };
-  });
-}
-
-/** Validates and normalizes all project fields before database access. */
+/** Validates and normalizes editable project fields before database access. */
 export function validateProjectPayload(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     throw new HttpError(400, "Неверный формат проекта.");
   }
 
   return {
-    code: readText(payload.code, "Технический код", { maxLength: 120 }) || "SYSTEM / PROJECT",
     title: readLocalized(payload.title, "Название", 180),
     description: readLocalized(payload.description, "Описание", 5000),
     stack: readStringArray(payload.stack || [], "Стек", { maxItems: 24, maxLength: 80 }),
-    screenshots: readStringArray(payload.screenshots || [], "Скриншоты", {
-      maxItems: 24,
-      maxLength: 500,
-    }).map((url) => readUrl(url, "Скриншот")),
-    liveUrl: readUrl(payload.liveUrl, "Live Project URL"),
-    githubUrl: readUrl(payload.githubUrl, "GitHub URL"),
-    metrics: readMetrics(payload.metrics || []),
+    existingScreenshots: readStringArray(
+      payload.existingScreenshots || [],
+      "Существующие скриншоты",
+      { maxItems: 100, maxLength: 500 }
+    ),
   };
+}
+
+/** Parses the JSON project payload embedded into multipart form data. */
+export function parseProjectPayload(body) {
+  if (typeof body?.project !== "string") {
+    throw new HttpError(400, "Не переданы данные проекта.");
+  }
+
+  try {
+    return JSON.parse(body.project);
+  } catch {
+    throw new HttpError(400, "Данные проекта содержат некорректный JSON.");
+  }
 }
 
 /** Rejects malformed identifiers before they reach prepared SQL statements. */

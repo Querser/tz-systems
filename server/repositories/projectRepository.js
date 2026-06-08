@@ -14,9 +14,8 @@ const insertStatement = database.prepare(`
 `);
 const updateStatement = database.prepare(`
   UPDATE projects SET
-    code = ?, title_ru = ?, title_en = ?, description_ru = ?, description_en = ?,
-    stack_json = ?, screenshots_json = ?, live_url = ?, github_url = ?,
-    metrics_json = ?, updated_at = ?
+    title_ru = ?, title_en = ?, description_ru = ?, description_en = ?,
+    stack_json = ?, screenshots_json = ?, updated_at = ?
   WHERE id = ?
 `);
 const deleteStatement = database.prepare("DELETE FROM projects WHERE id = ?");
@@ -29,33 +28,29 @@ function mapProject(row) {
   return {
     id: row.id,
     order: row.sort_order,
-    code: row.code,
     title: { ru: row.title_ru, en: row.title_en },
     description: { ru: row.description_ru, en: row.description_en },
     stack: JSON.parse(row.stack_json),
     screenshots: JSON.parse(row.screenshots_json),
-    liveUrl: row.live_url,
-    githubUrl: row.github_url,
-    metrics: JSON.parse(row.metrics_json),
   };
 }
 
-/** Inserts a normalized project using a single prepared statement. */
+/** Inserts a project while satisfying legacy non-null database columns. */
 function insertProject(project) {
   const now = new Date().toISOString();
   insertStatement.run(
     project.id,
     project.order,
-    project.code,
+    project.code || `PROJECT / ${String(project.order).padStart(2, "0")}`,
     project.title.ru,
     project.title.en,
     project.description.ru,
     project.description.en,
     JSON.stringify(project.stack),
-    JSON.stringify(project.screenshots),
-    project.liveUrl,
-    project.githubUrl,
-    JSON.stringify(project.metrics),
+    JSON.stringify(project.screenshots || []),
+    project.liveUrl || "#",
+    project.githubUrl || "#",
+    JSON.stringify(project.metrics || []),
     now,
     now
   );
@@ -89,19 +84,15 @@ export const projectRepository = {
     return this.findById(project.id);
   },
 
-  /** Updates project content while preserving identity and order. */
+  /** Updates editable content while preserving identity and order. */
   update(id, project) {
     updateStatement.run(
-      project.code,
       project.title.ru,
       project.title.en,
       project.description.ru,
       project.description.en,
       JSON.stringify(project.stack),
       JSON.stringify(project.screenshots),
-      project.liveUrl,
-      project.githubUrl,
-      JSON.stringify(project.metrics),
       new Date().toISOString(),
       id
     );

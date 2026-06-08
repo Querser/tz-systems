@@ -5,9 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Portfolio Admin — Проекты</title>
+    <script src="/admin/admin-bootstrap.js"></script>
     <link rel="stylesheet" href="/admin/admin.css" />
   </head>
   <body class="admin-body" data-admin-page="dashboard">
+    <div class="admin-preloader" id="admin-preloader" aria-live="polite" aria-label="Загрузка панели">
+      <div class="admin-preloader-core">
+        <div class="admin-preloader-heading">
+          <span>PORTFOLIO_ADMIN</span>
+          <strong id="admin-preloader-percentage">0%</strong>
+        </div>
+        <div class="admin-preloader-track" aria-hidden="true">
+          <span id="admin-preloader-progress"></span>
+        </div>
+        <p class="admin-preloader-status" id="admin-preloader-status">Инициализация защищённого контура</p>
+        <div class="admin-preloader-log" id="admin-preloader-log" aria-hidden="true"></div>
+      </div>
+    </div>
+
     <header class="admin-header">
       <a class="admin-brand" href="/admin/dashboard.html">
         <span>TZ</span>
@@ -45,65 +60,57 @@
           <div class="admin-form-grid">
             <label class="admin-field">
               <span>Название — RU *</span>
-              <input id="title-ru" name="titleRu" type="text" required />
+              <input id="title-ru" name="titleRu" type="text" maxlength="180" required />
             </label>
             <label class="admin-field">
               <span>Название — EN</span>
-              <input id="title-en" name="titleEn" type="text" />
+              <input id="title-en" name="titleEn" type="text" maxlength="180" />
             </label>
           </div>
 
           <label class="admin-field">
             <span>Полное описание — RU *</span>
-            <textarea id="description-ru" name="descriptionRu" rows="5" required></textarea>
+            <textarea id="description-ru" name="descriptionRu" rows="5" maxlength="5000" required></textarea>
           </label>
           <label class="admin-field">
             <span>Полное описание — EN</span>
-            <textarea id="description-en" name="descriptionEn" rows="5"></textarea>
+            <textarea id="description-en" name="descriptionEn" rows="5" maxlength="5000"></textarea>
           </label>
-
-          <div class="admin-form-grid">
-            <label class="admin-field">
-              <span>Технический код карточки</span>
-              <input id="project-code" name="code" type="text" placeholder="SYSTEM / PROJECT" />
-            </label>
-            <label class="admin-field">
-              <span>Стек</span>
-              <input id="project-stack" name="stack" type="text" placeholder="Python, FastAPI, PostgreSQL" />
-            </label>
-          </div>
 
           <label class="admin-field">
-            <span>Скриншоты — по одному URL/пути на строку</span>
-            <textarea
-              id="project-screenshots"
-              name="screenshots"
-              rows="4"
-              placeholder="/assets/img/projects/screen-1.png&#10;https://example.com/screen-2.png"
-            ></textarea>
-            <small>Для технического плейсхолдера используйте: placeholder:Название RU|Title EN</small>
+            <span>Стек</span>
+            <input
+              id="project-stack"
+              name="stack"
+              type="text"
+              placeholder="Python, FastAPI, PostgreSQL"
+            />
           </label>
 
-          <div class="admin-form-grid">
-            <label class="admin-field">
-              <span>Live Project URL</span>
-              <input id="live-url" name="liveUrl" type="text" value="#" />
-            </label>
-            <label class="admin-field">
-              <span>GitHub URL</span>
-              <input id="github-url" name="githubUrl" type="text" value="#" />
-            </label>
-          </div>
-
-          <label class="admin-field">
-            <span>Метрики — value | label RU | label EN</span>
-            <textarea
-              id="project-metrics"
-              name="metrics"
-              rows="5"
-              placeholder="99.9% | Uptime систем | Systems uptime"
-            ></textarea>
-          </label>
+          <section class="admin-upload-field" aria-labelledby="screenshots-label">
+            <div class="admin-upload-heading">
+              <div>
+                <span id="screenshots-label">Скриншоты проекта</span>
+                <small>JPEG, PNG или WebP. До 8 МБ на файл, максимум 20 новых файлов за раз.</small>
+              </div>
+              <label class="admin-upload-button" for="project-screenshots">
+                Выбрать изображения
+                <input
+                  class="admin-file-input"
+                  id="project-screenshots"
+                  name="screenshots"
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                  multiple
+                />
+              </label>
+            </div>
+            <div
+              class="admin-screenshot-previews"
+              id="project-screenshot-previews"
+              aria-live="polite"
+            ></div>
+          </section>
 
           <div class="admin-form-actions">
             <button class="admin-button admin-button-primary" id="save-project-button" type="submit">

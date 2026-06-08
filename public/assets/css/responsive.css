@@ -239,19 +239,6 @@
           font-size: clamp(1.9rem, 11vw, 3rem);
         }
 
-        .project-modal-metrics {
-          grid-template-columns: 1fr;
-        }
-
-        .project-modal-actions {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-
-        .project-modal-action {
-          width: 100%;
-        }
-
         .project-modal-media {
           min-height: 380px;
           padding-right: 12px;

@@ -7,7 +7,8 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 COPY --chown=node:node . .
-RUN mkdir -p /app/database && chown node:node /app/database
+RUN mkdir -p /app/database /app/public/uploads/projects \
+  && chown -R node:node /app/database /app/public/uploads
 
 USER node
 EXPOSE 3001

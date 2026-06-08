@@ -27,6 +27,9 @@ export const env = {
   isProduction,
   databasePath:
     process.env.DATABASE_PATH || path.join(projectRoot, "database", "portfolio.sqlite"),
+  uploadDirectory:
+    process.env.UPLOAD_DIRECTORY ||
+    path.join(projectRoot, "public", "uploads", "projects"),
   sessionSecret: configuredSessionSecret || crypto.randomBytes(48).toString("hex"),
   initialAdminPasswordHash:
     configuredAdminPasswordHash ||

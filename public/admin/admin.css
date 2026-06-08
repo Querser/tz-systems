@@ -22,6 +22,10 @@ html {
   color-scheme: dark;
 }
 
+html.admin-loading {
+  overflow: hidden;
+}
+
 body {
   min-width: 0;
   min-height: 100vh;
@@ -188,6 +192,13 @@ textarea {
   font-size: 0.72rem;
 }
 
+.admin-project-card small {
+  display: block;
+  margin: -4px 0 14px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
 .admin-project-actions {
   display: flex;
   flex-wrap: wrap;
@@ -214,6 +225,11 @@ textarea {
   border-color: var(--accent);
   background: rgba(0, 229, 255, 0.12);
   box-shadow: 0 0 20px rgba(0, 229, 255, 0.12);
+}
+
+.admin-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
 }
 
 .admin-button-primary {
@@ -273,6 +289,244 @@ textarea {
   border-color: var(--accent);
   box-shadow: 0 0 18px rgba(0, 229, 255, 0.1);
   outline: none;
+}
+
+.admin-upload-field {
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  background: rgba(3, 8, 13, 0.5);
+}
+
+.admin-upload-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.admin-upload-heading > div {
+  display: grid;
+  gap: 5px;
+}
+
+.admin-upload-heading span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.admin-upload-heading small {
+  max-width: 70ch;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.admin-upload-button {
+  position: relative;
+  display: inline-flex;
+  min-height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(0, 229, 255, 0.58);
+  border-radius: 7px;
+  padding: 10px 14px;
+  background: rgba(0, 229, 255, 0.07);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.admin-upload-button:hover,
+.admin-upload-button:focus-within {
+  border-style: solid;
+  background: rgba(0, 229, 255, 0.13);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.12);
+}
+
+.admin-file-input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+.admin-screenshot-previews {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.admin-screenshot-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(4, 9, 15, 0.8);
+}
+
+.admin-screenshot-visual {
+  display: grid;
+  min-height: 126px;
+  aspect-ratio: 16 / 10;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(0, 229, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.045) 1px, transparent 1px),
+    #060b11;
+  background-size: 20px 20px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.admin-screenshot-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-screenshot-placeholder {
+  padding: 12px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.admin-screenshot-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: rgba(3, 8, 13, 0.88);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+}
+
+.admin-screenshot-remove {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 9px 10px;
+  background: transparent;
+  color: #ffc3ca;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+}
+
+.admin-screenshot-remove:hover,
+.admin-screenshot-remove:focus-visible {
+  background: rgba(255, 107, 122, 0.12);
+}
+
+.admin-upload-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.admin-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 40%, rgba(0, 151, 219, 0.16), transparent 38%),
+    #030508;
+  background-size: 42px 42px, 42px 42px, auto, auto;
+  opacity: 1;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.admin-preloader[hidden] {
+  display: none;
+}
+
+.admin-preloader.is-finished {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.admin-preloader-core {
+  width: min(560px, 100%);
+  border: 1px solid rgba(0, 229, 255, 0.24);
+  border-radius: 10px;
+  padding: clamp(22px, 5vw, 38px);
+  background: rgba(5, 11, 17, 0.9);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.44), 0 0 60px rgba(0, 229, 255, 0.07);
+}
+
+.admin-preloader-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.admin-preloader-heading span {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+}
+
+.admin-preloader-heading strong {
+  font-size: clamp(1.7rem, 7vw, 3rem);
+}
+
+.admin-preloader-track {
+  height: 3px;
+  margin: 18px 0;
+  overflow: hidden;
+  background: rgba(0, 229, 255, 0.12);
+}
+
+.admin-preloader-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.8);
+}
+
+.admin-preloader-status {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.86rem;
+}
+
+.admin-preloader-log {
+  display: grid;
+  min-height: 88px;
+  align-content: end;
+  gap: 5px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
 }
 
 .admin-message {
@@ -348,6 +602,15 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .admin-upload-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-upload-button {
+    width: 100%;
+  }
+
   .admin-dashboard {
     width: min(calc(100% - 20px), 1520px);
     margin-top: 10px;
@@ -365,5 +628,9 @@ textarea {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .admin-preloader {
+    transition-duration: 0.01ms;
   }
 }

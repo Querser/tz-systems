@@ -3,4 +3,6 @@
 .env
 node_modules
 database
+uploads
+public/uploads/projects
 *.log

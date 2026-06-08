@@ -1,4 +1,9 @@
+import { runAdminPreloader } from "./admin-preloader.js";
+
 const page = document.body.dataset.adminPage;
+const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+const maxFileSize = 8 * 1024 * 1024;
+const maxFilesPerRequest = 20;
 let csrfToken = "";
 
 function setMessage(element, message, isError = false) {
@@ -11,7 +16,7 @@ async function apiRequest(url, options = {}) {
   const headers = new Headers(options.headers);
   const method = (options.method || "GET").toUpperCase();
 
-  if (options.body) {
+  if (options.body && !(options.body instanceof FormData)) {
     headers.set("content-type", "application/json");
   }
   if (!["GET", "HEAD", "OPTIONS"].includes(method) && csrfToken) {
@@ -36,30 +41,8 @@ async function apiRequest(url, options = {}) {
   return data;
 }
 
-function parseLines(value) {
-  return value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean);
-}
-
 function parseStack(value) {
   return value.split(/[,\n]/).map((item) => item.trim()).filter(Boolean);
-}
-
-function parseMetrics(value) {
-  return parseLines(value).map((line) => {
-    const [metricValue = "", labelRu = "", labelEn = ""] = line
-      .split("|")
-      .map((item) => item.trim());
-    return {
-      value: metricValue,
-      label: { ru: labelRu, en: labelEn || labelRu },
-    };
-  }).filter((metric) => metric.value && metric.label.ru);
-}
-
-function formatMetrics(metrics = []) {
-  return metrics
-    .map((metric) => `${metric.value} | ${metric.label?.ru || ""} | ${metric.label?.en || ""}`)
-    .join("\n");
 }
 
 /** Initializes the password form after the server validates the hidden-entry cookie. */
@@ -93,6 +76,8 @@ function initializeLogin() {
 async function initializeDashboard() {
   const projectList = document.querySelector("#admin-project-list");
   const form = document.querySelector("#project-form");
+  const fileInput = document.querySelector("#project-screenshots");
+  const previewGrid = document.querySelector("#project-screenshot-previews");
   const formHeading = document.querySelector("#form-heading");
   const saveButton = document.querySelector("#save-project-button");
   const cancelButton = document.querySelector("#cancel-edit-button");
@@ -101,32 +86,116 @@ async function initializeDashboard() {
   const message = document.querySelector("#dashboard-message");
   let projects = [];
   let editingId = null;
+  let existingScreenshots = [];
+  let selectedFiles = [];
+
+  function releaseObjectUrls() {
+    selectedFiles.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+  }
+
+  function createScreenshotPreview({ source, label, onRemove, isNew }) {
+    const card = document.createElement("article");
+    const visual = document.createElement("div");
+    const badge = document.createElement("span");
+    const removeButton = document.createElement("button");
+
+    card.className = "admin-screenshot-card";
+    visual.className = "admin-screenshot-visual";
+    badge.className = "admin-screenshot-badge";
+    badge.textContent = isNew ? "NEW" : "SAVED";
+    removeButton.className = "admin-screenshot-remove";
+    removeButton.type = "button";
+    removeButton.textContent = "Удалить";
+    removeButton.setAttribute("aria-label", `Удалить скриншот ${label}`);
+    removeButton.addEventListener("click", onRemove);
+
+    if (source.startsWith("placeholder:")) {
+      const placeholder = document.createElement("span");
+      placeholder.className = "admin-screenshot-placeholder";
+      placeholder.textContent = source.slice("placeholder:".length).split("|")[0] || "Placeholder";
+      visual.append(placeholder);
+    } else {
+      const image = document.createElement("img");
+      image.src = source;
+      image.alt = label;
+      image.loading = "lazy";
+      image.addEventListener("error", () => {
+        visual.classList.add("is-missing");
+        image.remove();
+        const missing = document.createElement("span");
+        missing.textContent = "Изображение недоступно";
+        visual.append(missing);
+      }, { once: true });
+      visual.append(image);
+    }
+
+    card.append(visual, badge, removeButton);
+    return card;
+  }
+
+  function renderScreenshotPreviews() {
+    const items = [
+      ...existingScreenshots.map((source, index) =>
+        createScreenshotPreview({
+          source,
+          label: `сохранённый ${index + 1}`,
+          isNew: false,
+          onRemove: () => {
+            existingScreenshots = existingScreenshots.filter((item) => item !== source);
+            renderScreenshotPreviews();
+          },
+        })
+      ),
+      ...selectedFiles.map((item, index) =>
+        createScreenshotPreview({
+          source: item.previewUrl,
+          label: item.file.name || `новый ${index + 1}`,
+          isNew: true,
+          onRemove: () => {
+            URL.revokeObjectURL(item.previewUrl);
+            selectedFiles = selectedFiles.filter((candidate) => candidate.id !== item.id);
+            renderScreenshotPreviews();
+          },
+        })
+      ),
+    ];
+
+    if (!items.length) {
+      const empty = document.createElement("p");
+      empty.className = "admin-upload-empty";
+      empty.textContent = "Изображения ещё не выбраны.";
+      previewGrid.replaceChildren(empty);
+      return;
+    }
+    previewGrid.replaceChildren(...items);
+  }
 
   function resetForm() {
     editingId = null;
+    releaseObjectUrls();
+    selectedFiles = [];
+    existingScreenshots = [];
     form.reset();
-    form.elements.liveUrl.value = "#";
-    form.elements.githubUrl.value = "#";
     formHeading.textContent = "Новый проект";
     saveButton.textContent = "Добавить проект";
     cancelButton.hidden = true;
+    renderScreenshotPreviews();
   }
 
   function fillForm(project) {
+    releaseObjectUrls();
     editingId = project.id;
+    selectedFiles = [];
+    existingScreenshots = [...(project.screenshots || [])];
     form.elements.titleRu.value = project.title?.ru || "";
     form.elements.titleEn.value = project.title?.en || "";
     form.elements.descriptionRu.value = project.description?.ru || "";
     form.elements.descriptionEn.value = project.description?.en || "";
-    form.elements.code.value = project.code || "";
     form.elements.stack.value = (project.stack || []).join(", ");
-    form.elements.screenshots.value = (project.screenshots || []).join("\n");
-    form.elements.liveUrl.value = project.liveUrl || "#";
-    form.elements.githubUrl.value = project.githubUrl || "#";
-    form.elements.metrics.value = formatMetrics(project.metrics);
     formHeading.textContent = `Редактирование: ${project.title?.ru || "Проект"}`;
     saveButton.textContent = "Сохранить изменения";
     cancelButton.hidden = false;
+    renderScreenshotPreviews();
     form.elements.titleRu.focus();
   }
 
@@ -134,6 +203,7 @@ async function initializeDashboard() {
     const card = document.createElement("article");
     const title = document.createElement("h3");
     const meta = document.createElement("p");
+    const screenshots = document.createElement("small");
     const actions = document.createElement("div");
     const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
@@ -141,6 +211,7 @@ async function initializeDashboard() {
     card.className = "admin-project-card";
     title.textContent = project.title?.ru || project.title?.en || "Без названия";
     meta.textContent = (project.stack || []).join(" / ") || "Стек не указан";
+    screenshots.textContent = `Скриншотов: ${(project.screenshots || []).length}`;
     actions.className = "admin-project-actions";
     editButton.className = "admin-button";
     editButton.type = "button";
@@ -168,7 +239,7 @@ async function initializeDashboard() {
     });
 
     actions.append(editButton, deleteButton);
-    card.append(title, meta, actions);
+    card.append(title, meta, screenshots, actions);
     return card;
   }
 
@@ -180,7 +251,6 @@ async function initializeDashboard() {
       projectList.replaceChildren(emptyState);
       return;
     }
-
     projectList.replaceChildren(...projects.map(createProjectCard));
   }
 
@@ -189,10 +259,10 @@ async function initializeDashboard() {
     renderProjectList();
   }
 
-  function serializeForm() {
+  function createProjectFormData() {
     const titleRu = form.elements.titleRu.value.trim();
     const descriptionRu = form.elements.descriptionRu.value.trim();
-    return {
+    const payload = {
       title: {
         ru: titleRu,
         en: form.elements.titleEn.value.trim() || titleRu,
@@ -201,14 +271,46 @@ async function initializeDashboard() {
         ru: descriptionRu,
         en: form.elements.descriptionEn.value.trim() || descriptionRu,
       },
-      code: form.elements.code.value.trim() || "SYSTEM / PROJECT",
       stack: parseStack(form.elements.stack.value),
-      screenshots: parseLines(form.elements.screenshots.value),
-      liveUrl: form.elements.liveUrl.value.trim() || "#",
-      githubUrl: form.elements.githubUrl.value.trim() || "#",
-      metrics: parseMetrics(form.elements.metrics.value),
+      existingScreenshots,
     };
+    const formData = new FormData();
+    formData.append("project", JSON.stringify(payload));
+    selectedFiles.forEach(({ file }) => formData.append("screenshots", file, file.name));
+    return formData;
   }
+
+  fileInput.addEventListener("change", () => {
+    const incomingFiles = [...fileInput.files];
+    fileInput.value = "";
+
+    if (selectedFiles.length + incomingFiles.length > maxFilesPerRequest) {
+      setMessage(message, `За один раз можно загрузить не более ${maxFilesPerRequest} новых изображений.`, true);
+      return;
+    }
+
+    const invalidFile = incomingFiles.find(
+      (file) => !allowedImageTypes.has(file.type) || file.size > maxFileSize
+    );
+    if (invalidFile) {
+      setMessage(
+        message,
+        `Файл «${invalidFile.name}» должен быть JPEG, PNG или WebP размером до 8 МБ.`,
+        true
+      );
+      return;
+    }
+
+    selectedFiles.push(
+      ...incomingFiles.map((file) => ({
+        id: crypto.randomUUID(),
+        file,
+        previewUrl: URL.createObjectURL(file),
+      }))
+    );
+    setMessage(message, incomingFiles.length ? `Добавлено файлов: ${incomingFiles.length}.` : "");
+    renderScreenshotPreviews();
+  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -219,7 +321,7 @@ async function initializeDashboard() {
       const url = editingId ? `/api/projects/${encodeURIComponent(editingId)}` : "/api/projects";
       await apiRequest(url, {
         method: editingId ? "PUT" : "POST",
-        body: JSON.stringify(serializeForm()),
+        body: createProjectFormData(),
       });
       setMessage(message, editingId ? "Изменения сохранены." : "Проект добавлен.");
       resetForm();
@@ -243,18 +345,28 @@ async function initializeDashboard() {
       location.replace("/");
     }
   });
+  window.addEventListener("beforeunload", releaseObjectUrls);
 
-  try {
-    const session = await apiRequest("/api/auth/session");
-    csrfToken = session.csrfToken;
-    await loadAndRenderProjects();
-  } catch (error) {
-    setMessage(message, error.message, true);
-  }
+  renderScreenshotPreviews();
+  const session = await apiRequest("/api/auth/session");
+  csrfToken = session.csrfToken;
+  await loadAndRenderProjects();
 }
 
-if (page === "login") {
-  initializeLogin();
-} else if (page === "dashboard") {
-  initializeDashboard();
+const preloader = runAdminPreloader();
+const initialization =
+  page === "login"
+    ? Promise.resolve(initializeLogin())
+    : page === "dashboard"
+      ? initializeDashboard()
+      : Promise.resolve();
+
+try {
+  await Promise.all([preloader, initialization]);
+} catch (error) {
+  const message = document.querySelector(".admin-message");
+  if (message) {
+    setMessage(message, error.message, true);
+  }
+  await preloader;
 }

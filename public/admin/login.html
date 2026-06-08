@@ -4,10 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>admin</title>
+    <title>Portfolio Admin — Вход</title>
+    <script src="/admin/admin-bootstrap.js"></script>
     <link rel="stylesheet" href="/admin/admin.css" />
   </head>
   <body class="admin-body admin-login-page" data-admin-page="login">
+    <div class="admin-preloader" id="admin-preloader" aria-live="polite" aria-label="Загрузка панели">
+      <div class="admin-preloader-core">
+        <div class="admin-preloader-heading">
+          <span>PORTFOLIO_ADMIN</span>
+          <strong id="admin-preloader-percentage">0%</strong>
+        </div>
+        <div class="admin-preloader-track" aria-hidden="true">
+          <span id="admin-preloader-progress"></span>
+        </div>
+        <p class="admin-preloader-status" id="admin-preloader-status">Инициализация защищённого контура</p>
+        <div class="admin-preloader-log" id="admin-preloader-log" aria-hidden="true"></div>
+      </div>
+    </div>
+
     <main class="login-shell">
       <section class="admin-panel login-panel" aria-labelledby="login-title">
         <p class="admin-kicker">secure.channel / authentication</p>

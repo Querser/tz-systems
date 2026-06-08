@@ -3,3 +3,7 @@ node_modules/
 database/*.sqlite
 database/*.sqlite-*
 *.log
+public/uploads/projects/*
+!public/uploads/projects/.gitkeep
+uploads/*
+!uploads/.gitkeep
