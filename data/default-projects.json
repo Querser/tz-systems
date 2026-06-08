@@ -1,0 +1,226 @@
+[
+  {
+    "id": "school-platform",
+    "order": 1,
+    "code": "ARCHITECTURE / 01",
+    "title": {
+      "ru": "Платформа школьного парламента",
+      "en": "School Parliament Platform"
+    },
+    "description": {
+      "ru": "Задача проекта — собрать управление ролями, пользователями и административными процессами в одной понятной системе. Решение разделяет интерфейс, бизнес-логику и слой данных, использует API-архитектуру и PostgreSQL. Такая структура упрощает развитие продукта, контроль доступа и подключение новых модулей.",
+      "en": "The project brings role, user, and administrative workflow management into one clear system. The solution separates interface, business logic, and data layers while using an API-driven architecture and PostgreSQL. This structure makes the product easier to extend, secure, and integrate with new modules."
+    },
+    "stack": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "screenshots": [
+      "placeholder:Обзор интерфейса|Interface overview",
+      "placeholder:Карта ролей|Role map",
+      "placeholder:Архитектура API|API architecture"
+    ],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "metrics": [
+      {
+        "value": "~$16k",
+        "label": {
+          "ru": "Выручка на запуске",
+          "en": "Launch revenue"
+        }
+      },
+      {
+        "value": "90k+",
+        "label": {
+          "ru": "Пользователей",
+          "en": "Users"
+        }
+      },
+      {
+        "value": "< 1s",
+        "label": {
+          "ru": "Целевой отклик",
+          "en": "Target response"
+        }
+      },
+      {
+        "value": "99.9%",
+        "label": {
+          "ru": "Uptime систем",
+          "en": "Systems uptime"
+        }
+      }
+    ]
+  },
+  {
+    "id": "telegram-observer",
+    "order": 2,
+    "code": "EVENT PIPELINE / 02",
+    "title": {
+      "ru": "Telegram Observer Bot",
+      "en": "Telegram Observer Bot"
+    },
+    "description": {
+      "ru": "Бот обрабатывает события, запускает автоматические сценарии, сохраняет данные и связывает Telegram со сторонними API. Модульная архитектура отделяет команды, фоновые задачи и работу с базой данных, поэтому систему проще тестировать, сопровождать и масштабировать под новые сценарии.",
+      "en": "The bot processes events, runs automated workflows, stores data, and connects Telegram with third-party APIs. Its modular architecture separates commands, background jobs, and database access, making the system easier to test, maintain, and scale for new scenarios."
+    },
+    "stack": [
+      "Python",
+      "PyTelegramBotAPI",
+      "SQLAlchemy",
+      "PostgreSQL"
+    ],
+    "screenshots": [
+      "placeholder:Диалоги бота|Bot conversations",
+      "placeholder:Поток событий|Event flow",
+      "placeholder:Панель сценариев|Workflow panel"
+    ],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "metrics": [
+      {
+        "value": "24/7",
+        "label": {
+          "ru": "Режим работы",
+          "en": "Runtime mode"
+        }
+      },
+      {
+        "value": "3+",
+        "label": {
+          "ru": "API-интеграции",
+          "en": "API integrations"
+        }
+      },
+      {
+        "value": "SQL",
+        "label": {
+          "ru": "Хранилище",
+          "en": "Storage"
+        }
+      },
+      {
+        "value": "Event",
+        "label": {
+          "ru": "Архитектура",
+          "en": "Architecture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "automation-system",
+    "order": 3,
+    "code": "AUTOMATION / 03",
+    "title": {
+      "ru": "Система автоматизации процессов",
+      "en": "Process Automation System"
+    },
+    "description": {
+      "ru": "Система сокращает ручные повторяющиеся операции: получает данные из нескольких источников, проверяет и преобразует их, а затем передаёт результат в подключённые сервисы. Серверные сценарии разбиты на независимые этапы, что делает обработку прозрачной и позволяет расширять pipeline без переписывания всей логики.",
+      "en": "The system reduces repetitive manual work by collecting data from multiple sources, validating and transforming it, and sending the result to connected services. Server workflows are split into independent stages, making processing transparent and allowing the pipeline to grow without rewriting the entire logic."
+    },
+    "stack": [
+      "Python",
+      "pandas",
+      "Third-party APIs",
+      "Linux"
+    ],
+    "screenshots": [
+      "placeholder:Pipeline обработки|Processing pipeline",
+      "placeholder:Мониторинг задач|Task monitoring",
+      "placeholder:Карта интеграций|Integration map"
+    ],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "metrics": [
+      {
+        "value": "6",
+        "label": {
+          "ru": "Этапов pipeline",
+          "en": "Pipeline stages"
+        }
+      },
+      {
+        "value": "4+",
+        "label": {
+          "ru": "Источника данных",
+          "en": "Data sources"
+        }
+      },
+      {
+        "value": "Linux",
+        "label": {
+          "ru": "Среда",
+          "en": "Environment"
+        }
+      },
+      {
+        "value": "pandas",
+        "label": {
+          "ru": "Обработка",
+          "en": "Processing"
+        }
+      }
+    ]
+  },
+  {
+    "id": "admin-dashboard",
+    "order": 4,
+    "code": "CONTROL PANEL / 04",
+    "title": {
+      "ru": "Full-stack панель управления",
+      "en": "Full-stack Admin Dashboard"
+    },
+    "description": {
+      "ru": "Панель объединяет управление пользователями, записями и состоянием системы. Интерфейс получает данные через изолированный backend-слой, а доступ к операциям регулируется ролями. Контейнеризация и разделение ответственности упрощают развёртывание, поддержку и безопасное добавление новых функций.",
+      "en": "The dashboard combines user, record, and system-state management. The interface receives data through an isolated backend layer, while role-based access controls available operations. Containerization and clear separation of concerns simplify deployment, maintenance, and safe feature expansion."
+    },
+    "stack": [
+      "Django",
+      "JavaScript",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "screenshots": [
+      "placeholder:Главный экран|Main screen",
+      "placeholder:Управление ролями|Role management",
+      "placeholder:Системные записи|System records"
+    ],
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "metrics": [
+      {
+        "value": "5",
+        "label": {
+          "ru": "Модулей",
+          "en": "Modules"
+        }
+      },
+      {
+        "value": "RBAC",
+        "label": {
+          "ru": "Доступ",
+          "en": "Access"
+        }
+      },
+      {
+        "value": "PostgreSQL",
+        "label": {
+          "ru": "База данных",
+          "en": "Database"
+        }
+      },
+      {
+        "value": "Docker",
+        "label": {
+          "ru": "Деплой",
+          "en": "Deployment"
+        }
+      }
+    ]
+  }
+]

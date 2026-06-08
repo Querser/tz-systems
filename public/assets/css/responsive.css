@@ -1,0 +1,358 @@
+@media (max-width: 1040px) {
+        h1 {
+          font-size: 4.5rem;
+        }
+
+        h2 {
+          font-size: 2.7rem;
+        }
+
+        .hero-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .system-map {
+          min-height: 320px;
+        }
+
+        .system-map svg {
+          min-height: 320px;
+        }
+
+        .solution-card:nth-child(n) {
+          grid-column: span 6;
+        }
+
+      }
+
+      @media (max-width: 820px) {
+        :root {
+          --header-height: 64px;
+        }
+
+        .menu-toggle {
+          display: block;
+          flex: 0 0 42px;
+        }
+
+        .nav-list {
+          position: absolute;
+          top: calc(var(--header-height) - 1px);
+          right: 0;
+          left: 0;
+          display: none;
+          border: 1px solid var(--line);
+          border-radius: var(--radius);
+          background: rgba(5, 7, 10, 0.98);
+          padding: 8px;
+        }
+
+        .nav-list.is-open {
+          display: grid;
+        }
+
+        .nav-list a {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .about-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .solutions-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .solution-card:nth-child(n) {
+          grid-column: auto;
+          min-height: 230px;
+        }
+
+        .process-list {
+          grid-template-columns: 1fr;
+          gap: var(--s2);
+          padding: 0 0 0 64px;
+        }
+
+        .process-list::before {
+          top: 22px;
+          right: auto;
+          bottom: 22px;
+          left: 21px;
+          width: 2px;
+          height: auto;
+          background: linear-gradient(180deg, transparent, var(--accent), transparent);
+        }
+
+        .process-step {
+          min-height: 0;
+        }
+
+        .step-number {
+          top: 22px;
+          left: -64px;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .project-modal {
+          padding: 12px;
+        }
+
+        .project-modal-panel,
+        .project-modal-layout {
+          max-height: calc(100svh - 24px);
+        }
+
+        .project-modal-layout {
+          display: block;
+          min-height: 0;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+
+        .project-modal-info {
+          padding: 62px clamp(20px, 6vw, 44px) 34px;
+          overflow: visible;
+        }
+
+        .project-modal-title {
+          max-width: 18ch;
+        }
+
+        .project-modal-media {
+          min-height: 440px;
+          border-top: 1px solid rgba(0, 229, 255, 0.16);
+          border-left: 0;
+          padding: 24px clamp(14px, 4vw, 28px) 28px;
+        }
+
+        .project-modal-media-scroll {
+          height: auto;
+          max-height: 56svh;
+        }
+      }
+
+      @media (max-width: 580px) {
+        .container {
+          width: min(calc(100% - 24px), var(--container));
+        }
+
+        .brand-name {
+          display: none;
+        }
+
+        .nav-actions {
+          gap: var(--s1);
+        }
+
+        .hero {
+          min-height: 88svh;
+          padding-top: calc(var(--header-height) + var(--s5));
+        }
+
+        h1 {
+          max-width: 11ch;
+          font-size: 3.15rem;
+        }
+
+        h2 {
+          font-size: 2.15rem;
+        }
+
+        .hero-position {
+          font-size: 0.96rem;
+        }
+
+        .system-map {
+          min-height: 370px;
+        }
+
+        .system-map svg {
+          display: none;
+        }
+
+        .architecture-mobile {
+          display: grid;
+        }
+
+        .solutions-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .solution-card:nth-child(n) {
+          min-height: 0;
+        }
+
+        .telemetry-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .telemetry-card {
+          min-height: 108px;
+        }
+
+        .contact-cta {
+          min-height: 360px;
+        }
+
+        .contact-cta-button {
+          width: 100%;
+        }
+
+        .footer-content {
+          flex-direction: column;
+        }
+
+        .system-status p {
+          text-align: center;
+        }
+
+        .data-stream {
+          width: 11ch;
+          font-size: 0.56rem;
+          opacity: 0.025;
+        }
+
+        .project-modal-close {
+          top: 10px;
+          right: 10px;
+          width: 40px;
+          height: 40px;
+        }
+
+        .project-modal-info {
+          padding: 58px 18px 28px;
+        }
+
+        .project-modal-tags {
+          margin-right: 44px;
+        }
+
+        .project-modal-title {
+          font-size: clamp(1.9rem, 11vw, 3rem);
+        }
+
+        .project-modal-metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .project-modal-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .project-modal-action {
+          width: 100%;
+        }
+
+        .project-modal-media {
+          min-height: 380px;
+          padding-right: 12px;
+          padding-left: 12px;
+        }
+
+        .project-media-placeholder {
+          min-height: 220px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        h1 {
+          font-size: 2.7rem;
+        }
+
+        .hero-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button-link {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .js-enabled .reveal,
+        .js-enabled .reveal.is-visible,
+        .js-enabled .slide-reveal,
+        .js-enabled .slide-reveal.is-visible {
+          opacity: 1;
+          transform: none;
+        }
+
+        .process-fade {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+
+        body.hero-assembly-pending .hero-assembly-item,
+        body.app-ready .hero-assembly-item {
+          opacity: 1;
+          transform: none;
+        }
+
+        .process-step:hover {
+          transform: none;
+        }
+
+        .tilt-card,
+        .js-enabled .slide-reveal.is-visible.tilt-card {
+          transform: none !important;
+          translate: none;
+        }
+
+        .tilt-card > * {
+          transform: none;
+        }
+
+        .graph-node:is(:hover, :focus-visible, .is-node-active) .graph-node-core,
+        .mobile-architecture-node:is(:hover, :focus-visible) {
+          transform: none;
+        }
+
+        .data-stream,
+        .glitch-title::before,
+        .glitch-title::after,
+        .graph-flow,
+        .node-activity,
+        .projects-section::before {
+          animation: none !important;
+        }
+
+        .projects-section::before {
+          display: none;
+        }
+
+        .data-stream {
+          transform: none;
+        }
+
+        .project-modal-panel,
+        .project-modal.is-open .project-modal-panel {
+          transform: none;
+        }
+
+        .technical-cursor.is-interactive .technical-cursor-ring {
+          animation: none;
+        }
+      }

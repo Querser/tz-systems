@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Portfolio Admin — Проекты</title>
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body class="admin-body" data-admin-page="dashboard">
+    <header class="admin-header">
+      <a class="admin-brand" href="/admin/dashboard.html">
+        <span>TZ</span>
+        <strong>Portfolio Admin</strong>
+      </a>
+      <nav class="admin-header-actions" aria-label="Действия администратора">
+        <a class="admin-button" href="/" target="_blank" rel="noreferrer">Открыть сайт</a>
+        <button class="admin-button" id="logout-button" type="button">Выйти</button>
+      </nav>
+    </header>
+
+    <main class="admin-dashboard">
+      <section class="admin-panel project-list-panel" aria-labelledby="projects-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-kicker">database/projects</p>
+            <h1 id="projects-heading">Проекты</h1>
+          </div>
+          <button class="admin-button admin-button-primary" id="new-project-button" type="button">
+            Добавить проект
+          </button>
+        </div>
+        <div class="admin-project-list" id="admin-project-list" aria-live="polite"></div>
+      </section>
+
+      <section class="admin-panel project-form-panel" aria-labelledby="form-heading">
+        <div class="admin-section-heading">
+          <div>
+            <p class="admin-kicker">project.editor</p>
+            <h2 id="form-heading">Новый проект</h2>
+          </div>
+        </div>
+
+        <form class="admin-form project-form" id="project-form">
+          <div class="admin-form-grid">
+            <label class="admin-field">
+              <span>Название — RU *</span>
+              <input id="title-ru" name="titleRu" type="text" required />
+            </label>
+            <label class="admin-field">
+              <span>Название — EN</span>
+              <input id="title-en" name="titleEn" type="text" />
+            </label>
+          </div>
+
+          <label class="admin-field">
+            <span>Полное описание — RU *</span>
+            <textarea id="description-ru" name="descriptionRu" rows="5" required></textarea>
+          </label>
+          <label class="admin-field">
+            <span>Полное описание — EN</span>
+            <textarea id="description-en" name="descriptionEn" rows="5"></textarea>
+          </label>
+
+          <div class="admin-form-grid">
+            <label class="admin-field">
+              <span>Технический код карточки</span>
+              <input id="project-code" name="code" type="text" placeholder="SYSTEM / PROJECT" />
+            </label>
+            <label class="admin-field">
+              <span>Стек</span>
+              <input id="project-stack" name="stack" type="text" placeholder="Python, FastAPI, PostgreSQL" />
+            </label>
+          </div>
+
+          <label class="admin-field">
+            <span>Скриншоты — по одному URL/пути на строку</span>
+            <textarea
+              id="project-screenshots"
+              name="screenshots"
+              rows="4"
+              placeholder="/assets/img/projects/screen-1.png&#10;https://example.com/screen-2.png"
+            ></textarea>
+            <small>Для технического плейсхолдера используйте: placeholder:Название RU|Title EN</small>
+          </label>
+
+          <div class="admin-form-grid">
+            <label class="admin-field">
+              <span>Live Project URL</span>
+              <input id="live-url" name="liveUrl" type="text" value="#" />
+            </label>
+            <label class="admin-field">
+              <span>GitHub URL</span>
+              <input id="github-url" name="githubUrl" type="text" value="#" />
+            </label>
+          </div>
+
+          <label class="admin-field">
+            <span>Метрики — value | label RU | label EN</span>
+            <textarea
+              id="project-metrics"
+              name="metrics"
+              rows="5"
+              placeholder="99.9% | Uptime систем | Systems uptime"
+            ></textarea>
+          </label>
+
+          <div class="admin-form-actions">
+            <button class="admin-button admin-button-primary" id="save-project-button" type="submit">
+              Добавить проект
+            </button>
+            <button class="admin-button" id="cancel-edit-button" type="button" hidden>
+              Отменить редактирование
+            </button>
+          </div>
+        </form>
+
+        <p class="admin-message" id="dashboard-message" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+    <script type="module" src="/admin/admin.js"></script>
+  </body>
+</html>

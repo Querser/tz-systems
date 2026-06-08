@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Тимофей Жилинский — разработка IT-продуктов, веб-платформ, Telegram-ботов и автоматизация бизнеса."
+      data-ru-content="Тимофей Жилинский — разработка IT-продуктов, веб-платформ, Telegram-ботов и автоматизация бизнеса."
+      data-en-content="Timofey Zhilinsky — IT product development, web platforms, Telegram bots, and business automation."
+    />
+    <title
+      data-ru="Тимофей Жилинский | IT-продукты и автоматизация"
+      data-en="Timofey Zhilinsky | IT Products & Automation"
+    >
+      Тимофей Жилинский | IT-продукты и автоматизация
+    </title>
+    <script src="/assets/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/effects.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+  </head>
+  <body>
+    <div class="system-preloader" id="system-preloader" aria-hidden="true">
+      <div class="preloader-grid" aria-hidden="true"></div>
+      <div class="preloader-console">
+        <p class="preloader-kicker">kernel.bootstrap / interface.initialization</p>
+        <div class="preloader-percentage" id="preloader-percentage">0%</div>
+        <div class="preloader-progress" aria-hidden="true">
+          <span id="preloader-progress-bar"></span>
+        </div>
+        <div class="preloader-logs" id="preloader-logs" aria-hidden="true"></div>
+        <p class="preloader-status" id="preloader-status">SYSTEM CORE: BOOTING</p>
+      </div>
+    </div>
+
+    <div class="technical-cursor" id="technical-cursor" aria-hidden="true">
+      <span class="technical-cursor-ring"></span>
+      <span class="technical-cursor-dot"></span>
+    </div>
+
+    <a class="skip-link" href="#main" data-ru="Перейти к содержимому" data-en="Skip to content">
+      Перейти к содержимому
+    </a>
+
+    <div class="data-streams" aria-hidden="true" inert>
+      <div class="data-stream left">[boot] kernel.ready
+api.gateway :: 200
+cache.sync :: ok
+worker.queue :: 04
+deploy.hash :: a81f
+latency :: 24ms
+auth.scope :: valid</div>
+      <div class="data-stream right">pipeline.init()
+database.pool = 12
+ai.task :: queued
+webhook :: received
+build.status :: pass
+region :: production
+uptime :: 99.9%</div>
+    </div>
+
+    <header class="site-header">
+      <nav
+        class="container nav-shell"
+        aria-label="Основная навигация"
+        data-ru-aria-label="Основная навигация"
+        data-en-aria-label="Primary navigation"
+      >
+        <a
+          class="brand"
+          href="#hero"
+          aria-label="На главную — Тимофей Жилинский"
+          data-ru-aria-label="На главную — Тимофей Жилинский"
+          data-en-aria-label="Timofey Zhilinsky home"
+        >
+          <span class="brand-mark" aria-hidden="true">TZ</span>
+          <span class="brand-name" data-ru="Тимофей Жилинский" data-en="Timofey Zhilinsky">
+            Тимофей Жилинский
+          </span>
+        </a>
+
+        <div class="nav-actions">
+          <ul class="nav-list" id="primary-menu">
+            <li><a href="#about" data-ru="Обо мне" data-en="About">Обо мне</a></li>
+            <li><a href="#stack" data-ru="Решения" data-en="Solutions">Решения</a></li>
+            <li><a href="#process" data-ru="Процесс" data-en="Process">Процесс</a></li>
+            <li><a href="#projects" data-ru="Проекты" data-en="Projects">Проекты</a></li>
+            <li><a href="#contacts" data-ru="Контакты" data-en="Contacts">Контакты</a></li>
+          </ul>
+
+          <div
+            class="language-switcher"
+            role="group"
+            aria-label="Выбор языка"
+            data-ru-aria-label="Выбор языка"
+            data-en-aria-label="Language selection"
+          >
+            <button class="language-option is-active" type="button" data-language="ru" aria-pressed="true">RU</button>
+            <button class="language-option" type="button" data-language="en" aria-pressed="false">EN</button>
+          </div>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="primary-menu"
+            aria-label="Открыть навигацию"
+            data-ru-aria-label="Открыть навигацию"
+            data-en-aria-label="Toggle navigation"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container hero-layout">
+          <div class="hero-copy">
+            <p
+              class="eyebrow hero-assembly-item hero-assembly-left"
+              style="--assembly-delay: 80ms"
+              data-ru="digital-системы для роста бизнеса"
+              data-en="digital systems for business growth"
+            >
+              digital-системы для роста бизнеса
+            </p>
+            <h1
+              class="glitch-title hero-assembly-item hero-assembly-left"
+              style="--assembly-delay: 160ms"
+              id="hero-title"
+              aria-label="Тимофей Жилинский"
+              data-ru-aria-label="Тимофей Жилинский"
+              data-en-aria-label="Timofey Zhilinsky"
+              data-text="Тимофей Жилинский"
+              data-ru="Тимофей Жилинский"
+              data-en="Timofey Zhilinsky"
+            >
+              Тимофей Жилинский
+            </h1>
+            <p
+              class="hero-position hero-assembly-item hero-assembly-up"
+              style="--assembly-delay: 260ms"
+              data-ru="Разработка IT-продуктов и автоматизация бизнеса"
+              data-en="IT Product Development &amp; Business Automation"
+            >
+              Разработка IT-продуктов и автоматизация бизнеса
+            </p>
+            <p
+              class="hero-summary hero-assembly-item hero-assembly-up"
+              style="--assembly-delay: 360ms"
+              data-ru="Я создаю digital-решения, которые экономят время и приносят деньги. От проектирования архитектуры до запуска масштабируемых веб-платформ и Telegram-ботов — я беру на себя всю техническую реализацию, чтобы вы могли сфокусироваться на бизнесе."
+              data-en="I create digital solutions that save time and generate revenue. From architecture design to launching scalable web platforms and Telegram bots, I handle the entire technical implementation so you can focus on your business."
+            >
+              Я создаю digital-решения, которые экономят время и приносят деньги. От
+              проектирования архитектуры до запуска масштабируемых веб-платформ и
+              Telegram-ботов — я беру на себя всю техническую реализацию, чтобы вы
+              могли сфокусироваться на бизнесе.
+            </p>
+            <div
+              class="hero-actions hero-assembly-item hero-assembly-up"
+              style="--assembly-delay: 460ms"
+            >
+              <a
+                class="button-link"
+                href="https://t.me/Zhilinsky"
+                target="_blank"
+                rel="noreferrer"
+                data-ru="Обсудить проект"
+                data-en="Discuss a Project"
+              >
+                Обсудить проект
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="system-map hero-assembly-item hero-assembly-right"
+            style="--assembly-delay: 240ms"
+            aria-label="Схема интеграции бизнес-продукта"
+            data-ru-aria-label="Схема интеграции бизнес-продукта"
+            data-en-aria-label="Business product integration funnel"
+          >
+            <svg viewBox="0 0 620 390" role="img" aria-labelledby="graph-title graph-description">
+              <title id="graph-title" data-ru="Воронка интеграции бизнес-продукта" data-en="Business product integration funnel">
+                Воронка интеграции бизнес-продукта
+              </title>
+              <desc
+                id="graph-description"
+                data-ru="Базы данных, backend-логика и внешние API объединяются системной интеграцией в готовый бизнес-продукт."
+                data-en="Databases, backend logic, and external APIs converge through system integration into a ready business product."
+              >
+                Базы данных, backend-логика и внешние API объединяются системной
+                интеграцией в готовый бизнес-продукт.
+              </desc>
+
+              <g aria-hidden="true">
+                <path class="graph-edge" d="M175 77 H205 V195 H240" />
+                <path class="graph-edge" d="M175 195 H240" />
+                <path class="graph-edge" d="M175 313 H205 V195 H240" />
+                <path class="graph-edge" d="M415 195 H440" />
+
+                <path class="graph-flow" pathLength="100" d="M175 77 H205 V195 H240" />
+                <path class="graph-flow delay-1" pathLength="100" d="M175 195 H240" />
+                <path class="graph-flow delay-2" pathLength="100" d="M175 313 H205 V195 H240" />
+                <path class="graph-flow delay-3" pathLength="100" d="M415 195 H440" />
+              </g>
+
+              <g
+                class="graph-node"
+                transform="translate(20 50)"
+                tabindex="0"
+                role="img"
+                aria-label="Databases module"
+                data-cursor="interactive"
+              >
+                <g class="graph-node-core">
+                  <rect width="155" height="54" rx="8" />
+                  <text x="77.5" y="33">DATABASES</text>
+                  <circle class="node-activity" cx="139" cy="14" r="4" />
+                </g>
+              </g>
+              <g
+                class="graph-node"
+                transform="translate(20 168)"
+                tabindex="0"
+                role="img"
+                aria-label="Backend Logic module"
+                data-cursor="interactive"
+              >
+                <g class="graph-node-core">
+                  <rect width="155" height="54" rx="8" />
+                  <text x="77.5" y="33">BACKEND LOGIC</text>
+                  <circle class="node-activity delay-1" cx="139" cy="14" r="4" />
+                </g>
+              </g>
+              <g
+                class="graph-node"
+                transform="translate(20 286)"
+                tabindex="0"
+                role="img"
+                aria-label="External APIs module"
+                data-cursor="interactive"
+              >
+                <g class="graph-node-core">
+                  <rect width="155" height="54" rx="8" />
+                  <text x="77.5" y="33">EXTERNAL APIS</text>
+                  <circle class="node-activity delay-2" cx="139" cy="14" r="4" />
+                </g>
+              </g>
+              <g
+                class="graph-node root"
+                transform="translate(240 160)"
+                tabindex="0"
+                role="img"
+                aria-label="System Integration module"
+                data-cursor="interactive"
+              >
+                <g class="graph-node-core">
+                  <rect width="175" height="70" rx="8" />
+                  <text x="87.5" y="31">
+                    <tspan x="87.5">SYSTEM</tspan>
+                    <tspan x="87.5" dy="17">INTEGRATION</tspan>
+                  </text>
+                  <circle class="node-activity delay-1" cx="159" cy="15" r="4" />
+                </g>
+              </g>
+              <g
+                class="graph-node root"
+                transform="translate(440 160)"
+                tabindex="0"
+                role="img"
+                aria-label="Ready Business Product module"
+                data-cursor="interactive"
+              >
+                <g class="graph-node-core">
+                  <rect width="160" height="70" rx="8" />
+                  <text x="80" y="31">
+                    <tspan x="80">READY BUSINESS</tspan>
+                    <tspan x="80" dy="17">PRODUCT</tspan>
+                  </text>
+                  <circle class="node-activity delay-2" cx="144" cy="15" r="4" />
+                </g>
+              </g>
+
+              <text class="graph-caption" x="24" y="28">BUSINESS_FUNNEL / INTEGRATION PIPELINE</text>
+            </svg>
+            <div class="architecture-mobile" aria-hidden="true">
+              <div class="architecture-level sources">
+                <div class="mobile-architecture-node" data-cursor="interactive">DATABASES</div>
+                <div class="mobile-architecture-node" data-cursor="interactive">BACKEND LOGIC</div>
+                <div class="mobile-architecture-node" data-cursor="interactive">EXTERNAL APIS</div>
+              </div>
+              <div class="architecture-level integration">
+                <div class="mobile-architecture-node integration" data-cursor="interactive">
+                  SYSTEM INTEGRATION
+                </div>
+              </div>
+              <div class="architecture-level product">
+                <div class="mobile-architecture-node product" data-cursor="interactive">
+                  READY BUSINESS PRODUCT
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container about-layout">
+          <div class="slide-reveal slide-left">
+            <p class="eyebrow">profile.module</p>
+            <h2 id="about-title" data-ru="Обо мне" data-en="About">Обо мне</h2>
+          </div>
+          <p
+            class="about-copy slide-reveal slide-right"
+            data-delay="90"
+            data-ru="Я проектирую и разрабатываю современные веб-приложения, масштабируемых ботов и сложные системы автоматизации. Мой фокус — надежная архитектура, чистая бизнес-логика и эффективное решение реальных задач. От проектирования баз данных до настройки серверов и интеграции сторонних API — я веду проект на всех этапах жизненного цикла."
+            data-en="I design and develop modern web applications, scalable bots, and complex automation systems. My focus is reliable architecture, clean business logic, and effective solutions for real-world tasks. From database design to server configuration and third-party API integration, I handle projects across the full development lifecycle."
+          >
+            Я проектирую и разрабатываю современные веб-приложения, масштабируемых
+            ботов и сложные системы автоматизации. Мой фокус — надежная архитектура,
+            чистая бизнес-логика и эффективное решение реальных задач. От
+            проектирования баз данных до настройки серверов и интеграции сторонних
+            API — я веду проект на всех этапах жизненного цикла.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="stack" aria-labelledby="stack-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container">
+          <div class="section-heading slide-reveal slide-left">
+            <p class="eyebrow">product.modules</p>
+            <h2 id="stack-title" data-ru="Digital-решения" data-en="Digital Solutions">
+              Digital-решения
+            </h2>
+          </div>
+
+          <div class="solutions-grid">
+            <article class="solution-card glow-card tilt-card slide-reveal slide-left" data-delay="40">
+              <h3>Web &amp; Product Dev</h3>
+              <p
+                data-ru="Современные веб-платформы, продуктовые интерфейсы и бизнес-панели с масштабируемой архитектурой и понятной логикой развития."
+                data-en="Modern web platforms, product interfaces, and business dashboards built on scalable architecture and clear growth logic."
+              >
+                Современные веб-платформы, продуктовые интерфейсы и бизнес-панели с
+                масштабируемой архитектурой и понятной логикой развития.
+              </p>
+              <ul class="tag-list">
+                <li>Web Platforms</li>
+                <li>Dashboards</li>
+                <li>Product UX</li>
+              </ul>
+              <span class="solution-code">module / product.delivery</span>
+            </article>
+
+            <article class="solution-card glow-card tilt-card slide-reveal slide-right" data-delay="110">
+              <h3>Smart Bots</h3>
+              <p
+                data-ru="Telegram-боты и автоматизированные сценарии для коммуникации с клиентами, продаж и внутренних процессов команды."
+                data-en="Telegram bots and automated workflows for client communication, sales, and internal team operations."
+              >
+                Telegram-боты и автоматизированные сценарии для коммуникации с
+                клиентами, продаж и внутренних процессов команды.
+              </p>
+              <ul class="tag-list">
+                <li>Telegram</li>
+                <li>Automation</li>
+                <li>AI Flows</li>
+              </ul>
+              <span class="solution-code">module / smart.operations</span>
+            </article>
+
+            <article class="solution-card glow-card tilt-card slide-reveal slide-left" data-delay="180">
+              <h3>System Integration</h3>
+              <p
+                data-ru="Связываю API, базы данных, backend-логику и внешние сервисы в единый устойчивый контур автоматизации."
+                data-en="I connect APIs, databases, backend logic, and external services into one reliable automation environment."
+              >
+                Связываю API, базы данных, backend-логику и внешние сервисы в единый
+                устойчивый контур автоматизации.
+              </p>
+              <ul class="tag-list">
+                <li>APIs</li>
+                <li>Databases</li>
+                <li>Backend Logic</li>
+              </ul>
+              <span class="solution-code">module / integration.layer</span>
+            </article>
+
+            <article class="solution-card glow-card tilt-card slide-reveal slide-right" data-delay="250">
+              <h3>Tech Stack</h3>
+              <p
+                data-ru="Практичный production-стек для быстрой разработки, стабильного деплоя и дальнейшего масштабирования продукта."
+                data-en="A practical production stack for fast development, reliable deployment, and future product scaling."
+              >
+                Практичный production-стек для быстрой разработки, стабильного деплоя
+                и дальнейшего масштабирования продукта.
+              </p>
+              <ul class="tag-list">
+                <li>Python</li>
+                <li>Django / FastAPI</li>
+                <li>PostgreSQL</li>
+                <li>JavaScript / React</li>
+                <li>Docker</li>
+                <li>Linux</li>
+                <li>APIs</li>
+              </ul>
+              <span class="solution-code">module / production.stack</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section projects-section" id="projects" aria-labelledby="projects-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container">
+          <div class="section-heading slide-reveal slide-right">
+            <p class="eyebrow">project.index</p>
+            <h2 id="projects-title" data-ru="Проекты" data-en="Projects">Проекты</h2>
+          </div>
+
+          <div class="project-grid" id="project-grid" aria-live="polite">
+            <p class="project-loading" data-ru="Загрузка проектов..." data-en="Loading projects...">
+              Загрузка проектов...
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="telemetry-section"
+        aria-label="Бизнес-метрики"
+        data-ru-aria-label="Бизнес-метрики"
+        data-en-aria-label="Business metrics"
+      >
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container telemetry-panel">
+          <div class="telemetry-grid">
+            <article class="telemetry-card glow-card slide-reveal slide-right" data-delay="40">
+              <span
+                class="metric-value"
+                data-target="16"
+                data-prefix="~$"
+                data-suffix-ru="k"
+                data-suffix-en="k"
+                data-precision="0"
+              >~$16k</span>
+              <span
+                class="metric-label"
+                data-ru="Принесли клиенту на запуске"
+                data-en="Generated for a Client at Launch"
+              >Принесли клиенту на запуске</span>
+            </article>
+
+            <article class="telemetry-card glow-card slide-reveal slide-left" data-delay="100">
+              <span
+                class="metric-value"
+                data-target="90"
+                data-prefix=""
+                data-suffix-ru="k+"
+                data-suffix-en="k+"
+                data-precision="0"
+              >90k+</span>
+              <span
+                class="metric-label"
+                data-ru="Ежемесячных активных пользователей"
+                data-en="Monthly Active Users"
+              >Ежемесячных активных пользователей</span>
+            </article>
+
+            <article class="telemetry-card glow-card slide-reveal slide-right" data-delay="160">
+              <span
+                class="metric-value"
+                data-target="99.9"
+                data-prefix=""
+                data-suffix-ru="%"
+                data-suffix-en="%"
+                data-precision="1"
+              >99.9%</span>
+              <span
+                class="metric-label"
+                data-ru="Uptime реализованных систем"
+                data-en="Delivered Systems Uptime"
+              >Uptime реализованных систем</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process" aria-labelledby="process-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container process-fade">
+          <div class="section-heading">
+            <p class="eyebrow">delivery.pipeline</p>
+            <h2 id="process-title" data-ru="Процесс разработки" data-en="Development Process">
+              Процесс разработки
+            </h2>
+          </div>
+
+          <div class="process-list">
+            <article class="process-step glow-card">
+              <span class="step-number">01</span>
+              <h3 data-ru="Аналитика" data-en="Analytics">Аналитика</h3>
+              <p
+                data-ru="Погружение в бизнес-процессы, сбор требований и оценка задачи"
+                data-en="Business process discovery, requirements gathering, and task assessment"
+              >
+                Погружение в бизнес-процессы, сбор требований и оценка задачи
+              </p>
+            </article>
+
+            <article class="process-step glow-card">
+              <span class="step-number">02</span>
+              <h3 data-ru="Прототип" data-en="Prototype">Прототип</h3>
+              <p
+                data-ru="Проектирование логики БД, архитектуры и интерфейса"
+                data-en="Database logic, architecture, and interface design"
+              >
+                Проектирование логики БД, архитектуры и интерфейса
+              </p>
+            </article>
+
+            <article class="process-step glow-card">
+              <span class="step-number">03</span>
+              <h3 data-ru="Разработка" data-en="Development">Разработка</h3>
+              <p
+                data-ru="Написание чистого кода, настройка бэкенда и интеграция API"
+                data-en="Clean code implementation, backend setup, and API integration"
+              >
+                Написание чистого кода, настройка бэкенда и интеграция API
+              </p>
+            </article>
+
+            <article class="process-step glow-card">
+              <span class="step-number">04</span>
+              <h3 data-ru="Релиз" data-en="Release">Релиз</h3>
+              <p
+                data-ru="Развертывание на боевых серверах и тестирование нагрузок"
+                data-en="Production deployment and load testing"
+              >
+                Развертывание на боевых серверах и тестирование нагрузок
+              </p>
+            </article>
+
+            <article class="process-step glow-card">
+              <span class="step-number">05</span>
+              <h3 data-ru="Поддержка" data-en="Support">Поддержка</h3>
+              <p
+                data-ru="Техническое сопровождение и масштабирование системы"
+                data-en="Technical support and system scaling"
+              >
+                Техническое сопровождение и масштабирование системы
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contacts" aria-labelledby="contacts-title">
+        <span class="calibration-marker" aria-hidden="true"></span>
+        <div class="container">
+          <div class="contact-cta glow-card slide-reveal slide-left">
+            <div class="contact-cta-decoration" aria-hidden="true"></div>
+            <div class="contact-cta-content">
+              <p class="eyebrow">start.project / open.channel</p>
+              <h2 id="contacts-title" data-ru="ЕСТЬ ИДЕЯ?" data-en="HAVE AN IDEA?">ЕСТЬ ИДЕЯ?</h2>
+              <p
+                data-ru="Получите бесплатную консультацию и технический аудит по вашему продукту."
+                data-en="Get a free consultation and technical audit for your product."
+              >
+                Получите бесплатную консультацию и технический аудит по вашему продукту.
+              </p>
+              <a
+                class="contact-cta-button"
+                href="https://t.me/Zhilinsky"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span data-ru="Обсудить в Telegram" data-en="Discuss on Telegram">Обсудить в Telegram</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="project-modal" id="project-modal" aria-hidden="true">
+      <div
+        class="project-modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        tabindex="-1"
+      >
+        <button
+          class="project-modal-close"
+          type="button"
+          aria-label="Close project details"
+          data-ru-aria-label="Закрыть детали проекта"
+          data-en-aria-label="Close project details"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="1.7"
+            />
+          </svg>
+        </button>
+
+        <div class="project-modal-layout">
+          <section class="project-modal-info">
+            <p
+              class="project-modal-kicker"
+              data-ru="system.blueprint / project.details"
+              data-en="system.blueprint / project.details"
+            >
+              system.blueprint / project.details
+            </p>
+            <ul class="project-modal-tags" id="project-modal-tags" aria-label="Technology stack"></ul>
+            <h2 class="project-modal-title" id="project-modal-title"></h2>
+            <div class="project-modal-metrics" id="project-modal-metrics"></div>
+            <p class="project-modal-description" id="project-modal-description"></p>
+            <div class="project-modal-actions">
+              <a class="project-modal-action" id="project-modal-live" href="#">Live Project</a>
+              <a class="project-modal-action" id="project-modal-github" href="#">GitHub</a>
+            </div>
+          </section>
+
+          <section
+            class="project-modal-media"
+            aria-label="Медиа проекта"
+            data-ru-aria-label="Медиа проекта"
+            data-en-aria-label="Project media"
+          >
+            <div class="project-modal-media-scroll" id="project-modal-media"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <span data-ru="Тимофей Жилинский" data-en="Timofey Zhilinsky">Тимофей Жилинский</span>
+        <span>2026</span>
+      </div>
+    </footer>
+
+    <div class="system-status" role="status" aria-label="System status">
+      <div class="container">
+        <p><strong>Status: Online</strong> | Uptime: 99.9% | Env: Production</p>
+      </div>
+    </div>
+
+    <script type="module" src="/assets/js/main.js"></script>
+  </body>
+</html>

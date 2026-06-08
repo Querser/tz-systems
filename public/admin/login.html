@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>admin</title>
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body class="admin-body admin-login-page" data-admin-page="login">
+    <main class="login-shell">
+      <section class="admin-panel login-panel" aria-labelledby="login-title">
+        <p class="admin-kicker">secure.channel / authentication</p>
+        <h1 id="login-title">admin</h1>
+        <p class="admin-muted">Введите пароль</p>
+
+        <form class="admin-form" id="login-form">
+          <label class="admin-field">
+            <span>Пароль</span>
+            <input
+              id="admin-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              autofocus
+            />
+          </label>
+          <button class="admin-button admin-button-primary" type="submit">Войти</button>
+        </form>
+
+        <p class="admin-message" id="login-message" role="status" aria-live="polite"></p>
+        <a class="admin-back-link" href="/">← Вернуться на сайт</a>
+      </section>
+    </main>
+    <script type="module" src="/admin/admin.js"></script>
+  </body>
+</html>
