@@ -108,11 +108,21 @@
         .project-modal-panel,
         .project-modal-layout {
           max-height: calc(100svh - 24px);
+          max-height: calc(100dvh - 24px);
+        }
+
+        .project-modal-panel {
+          height: calc(100svh - 24px);
+          height: calc(100dvh - 24px);
         }
 
         .project-modal-layout {
           display: block;
+          height: 100%;
           min-height: 0;
+          max-height: none;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
           overflow-x: hidden;
           overflow-y: auto;
         }
@@ -135,7 +145,9 @@
 
         .project-modal-media-scroll {
           height: auto;
-          max-height: 56svh;
+          max-height: none;
+          padding-right: 0;
+          overflow: visible;
         }
       }
 

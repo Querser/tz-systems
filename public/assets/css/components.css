@@ -269,7 +269,10 @@
       .project-modal-panel {
         position: relative;
         width: min(1400px, 100%);
+        height: min(85svh, 820px);
+        height: min(85dvh, 820px);
         max-height: calc(100svh - clamp(24px, 6vw, 64px));
+        max-height: calc(100dvh - clamp(24px, 6vw, 64px));
         border: 1px solid rgba(0, 229, 255, 0.72);
         border-radius: 18px;
         background:
@@ -332,9 +335,11 @@
 
       .project-modal-layout {
         display: grid;
+        height: 100%;
+        min-height: 0;
+        max-height: none;
         grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-        min-height: min(720px, calc(100svh - 64px));
-        max-height: calc(100svh - clamp(24px, 6vw, 64px));
+        overflow: hidden;
         scrollbar-color: var(--accent) rgba(0, 229, 255, 0.06);
         scrollbar-width: thin;
       }
@@ -354,9 +359,27 @@
 
       .project-modal-info {
         min-width: 0;
+        min-height: 0;
         padding: clamp(38px, 5vw, 72px);
         padding-right: clamp(34px, 4.5vw, 64px);
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         overflow-y: auto;
+        scrollbar-color: var(--accent) rgba(0, 229, 255, 0.06);
+        scrollbar-width: thin;
+      }
+
+      .project-modal-info::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .project-modal-info::-webkit-scrollbar-track {
+        background: rgba(0, 229, 255, 0.05);
+      }
+
+      .project-modal-info::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: rgba(0, 229, 255, 0.72);
       }
 
       .project-modal-kicker {
@@ -400,6 +423,7 @@
         color: var(--muted);
         font-size: clamp(0.96rem, 1.2vw, 1.08rem);
         line-height: 1.75;
+        overflow-wrap: anywhere;
       }
 
       .project-modal-media {
@@ -408,14 +432,19 @@
         border-left: 1px solid rgba(0, 229, 255, 0.16);
         padding: 66px 22px 22px;
         background: rgba(3, 8, 13, 0.42);
+        overflow: hidden;
       }
 
       .project-modal-media-scroll {
-        display: grid;
+        display: flex;
         height: 100%;
-        max-height: calc(100svh - 130px);
+        min-height: 0;
+        flex-direction: column;
+        align-items: stretch;
         gap: 16px;
         padding: 0 8px 0 0;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: var(--accent) rgba(0, 229, 255, 0.06);
@@ -494,7 +523,13 @@
       }
 
       .project-media-image {
+        display: grid;
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
         min-width: 0;
+        align-self: start;
+        place-items: start center;
         margin: 0;
         border: 1px solid rgba(0, 229, 255, 0.22);
         border-radius: 10px;
@@ -505,7 +540,11 @@
       .project-media-image img {
         display: block;
         width: 100%;
+        max-width: 100%;
         height: auto;
+        max-height: none;
+        object-fit: contain;
+        object-position: center top;
       }
 
       .telemetry-section {
