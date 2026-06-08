@@ -2,8 +2,11 @@ import { runAdminPreloader } from "./admin-preloader.js";
 
 const page = document.body.dataset.adminPage;
 const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
-const maxFileSize = 8 * 1024 * 1024;
-const maxFilesPerRequest = 20;
+let uploadLimits = {
+  maxFileSize: 16 * 1024 * 1024,
+  maxFiles: 20,
+  maxTotalSize: 64 * 1024 * 1024,
+};
 let csrfToken = "";
 
 function setMessage(element, message, isError = false) {
@@ -35,7 +38,11 @@ async function apiRequest(url, options = {}) {
     if (response.status === 401 && page === "dashboard") {
       location.replace("/");
     }
-    throw new Error(data?.error || `Ошибка запроса: ${response.status}`);
+    const fallbackMessage =
+      response.status === 413
+        ? "Сервер отклонил слишком большой запрос. Уменьшите общий размер изображений и повторите попытку."
+        : `Ошибка запроса: ${response.status}`;
+    throw new Error(data?.error || fallbackMessage);
   }
 
   return data;
@@ -43,6 +50,10 @@ async function apiRequest(url, options = {}) {
 
 function parseStack(value) {
   return value.split(/[,\n]/).map((item) => item.trim()).filter(Boolean);
+}
+
+function formatMegabytes(bytes) {
+  return `${Math.ceil(bytes / (1024 * 1024))} МБ`;
 }
 
 /** Initializes the password form after the server validates the hidden-entry cookie. */
@@ -78,6 +89,7 @@ async function initializeDashboard() {
   const form = document.querySelector("#project-form");
   const fileInput = document.querySelector("#project-screenshots");
   const previewGrid = document.querySelector("#project-screenshot-previews");
+  const uploadLimitsHelp = document.querySelector("#upload-limits-help");
   const formHeading = document.querySelector("#form-heading");
   const saveButton = document.querySelector("#save-project-button");
   const cancelButton = document.querySelector("#cancel-edit-button");
@@ -280,22 +292,54 @@ async function initializeDashboard() {
     return formData;
   }
 
+  function updateUploadLimits(serverLimits) {
+    if (
+      serverLimits &&
+      Number.isSafeInteger(serverLimits.maxFiles) &&
+      Number.isSafeInteger(serverLimits.maxFileSize) &&
+      Number.isSafeInteger(serverLimits.maxTotalSize)
+    ) {
+      uploadLimits = serverLimits;
+    }
+
+    uploadLimitsHelp.textContent =
+      `JPEG, PNG или WebP. До ${formatMegabytes(uploadLimits.maxFileSize)} на файл, ` +
+      `максимум ${uploadLimits.maxFiles} файлов и ${formatMegabytes(uploadLimits.maxTotalSize)} за раз.`;
+  }
+
   fileInput.addEventListener("change", () => {
     const incomingFiles = [...fileInput.files];
     fileInput.value = "";
 
-    if (selectedFiles.length + incomingFiles.length > maxFilesPerRequest) {
-      setMessage(message, `За один раз можно загрузить не более ${maxFilesPerRequest} новых изображений.`, true);
+    if (selectedFiles.length + incomingFiles.length > uploadLimits.maxFiles) {
+      setMessage(
+        message,
+        `За один раз можно загрузить не более ${uploadLimits.maxFiles} новых изображений.`,
+        true
+      );
       return;
     }
 
     const invalidFile = incomingFiles.find(
-      (file) => !allowedImageTypes.has(file.type) || file.size > maxFileSize
+      (file) => !allowedImageTypes.has(file.type) || file.size > uploadLimits.maxFileSize
     );
     if (invalidFile) {
       setMessage(
         message,
-        `Файл «${invalidFile.name}» должен быть JPEG, PNG или WebP размером до 8 МБ.`,
+        `Файл «${invalidFile.name}» должен быть JPEG, PNG или WebP размером до ` +
+          `${formatMegabytes(uploadLimits.maxFileSize)}.`,
+        true
+      );
+      return;
+    }
+
+    const currentTotalSize = selectedFiles.reduce((sum, item) => sum + item.file.size, 0);
+    const incomingTotalSize = incomingFiles.reduce((sum, file) => sum + file.size, 0);
+    if (currentTotalSize + incomingTotalSize > uploadLimits.maxTotalSize) {
+      setMessage(
+        message,
+        `Общий размер выбранных изображений не должен превышать ` +
+          `${formatMegabytes(uploadLimits.maxTotalSize)}.`,
         true
       );
       return;
@@ -308,7 +352,13 @@ async function initializeDashboard() {
         previewUrl: URL.createObjectURL(file),
       }))
     );
-    setMessage(message, incomingFiles.length ? `Добавлено файлов: ${incomingFiles.length}.` : "");
+    const selectedTotalSize = selectedFiles.reduce((sum, item) => sum + item.file.size, 0);
+    setMessage(
+      message,
+      incomingFiles.length
+        ? `Добавлено файлов: ${incomingFiles.length}. Общий размер: ${formatMegabytes(selectedTotalSize)}.`
+        : ""
+    );
     renderScreenshotPreviews();
   });
 
@@ -350,6 +400,7 @@ async function initializeDashboard() {
   renderScreenshotPreviews();
   const session = await apiRequest("/api/auth/session");
   csrfToken = session.csrfToken;
+  updateUploadLimits(session.uploadLimits);
   await loadAndRenderProjects();
 }
 

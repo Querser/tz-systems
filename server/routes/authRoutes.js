@@ -10,6 +10,7 @@ import { requireAdmin } from "../middleware/auth.js";
 import { requireCsrf } from "../middleware/csrf.js";
 import { loginRateLimit } from "../middleware/rateLimit.js";
 import { authService } from "../services/authService.js";
+import { projectUpload } from "../config/upload.js";
 
 export const authRouter = express.Router();
 
@@ -56,6 +57,11 @@ authRouter.get("/session", requireAdmin, (request, response) => {
     authenticated: true,
     username: request.adminSession.username,
     csrfToken: request.adminSession.csrf_token,
+    uploadLimits: {
+      maxFiles: projectUpload.maxFiles,
+      maxFileSize: projectUpload.maxFileSize,
+      maxTotalSize: projectUpload.maxTotalSize,
+    },
   });
 });
 

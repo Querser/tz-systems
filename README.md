@@ -21,7 +21,8 @@ The login page is intentionally absent from navigation. Click the `TZ` brand mar
 - Failed login attempts are rate-limited.
 - Project CRUD uses SQLite prepared statements and server-side validation.
 - Project screenshots are accepted only as verified JPEG, PNG, or WebP uploads.
-- Uploads are limited to 8 MB per file, 20 files per request, and 64 MB total.
+- Uploads are limited to 16 MB per file, 20 files per request, and 64 MB total.
+- The production nginx limit is intentionally higher at 70 MB to include multipart overhead.
 - Admin actions are recorded without passwords or project payloads.
 
 For deployment, copy `.env.example` to `.env`, provide a stable random `SESSION_SECRET`, and set `ADMIN_INITIAL_PASSWORD_HASH` before the first database initialization. The initial hash seeds a fresh database only; plaintext passwords must never be committed.
@@ -35,6 +36,7 @@ cp .env.example .env
 mkdir -p database uploads
 docker compose up -d --build
 docker compose ps
+npm run check:upload-limits
 ```
 
 The nginx templates in `deploy/nginx` provide an HTTP-only configuration for ACME issuance and the final HTTPS reverse proxy configuration.

@@ -80,7 +80,7 @@ export function uploadProjectScreenshots(request, response, next) {
       const status = error.code === "LIMIT_FILE_SIZE" ? 413 : 400;
       const message =
         error.code === "LIMIT_FILE_SIZE"
-          ? "Размер одного изображения не должен превышать 8 МБ."
+          ? "Размер одного изображения не должен превышать 16 МБ."
           : "Не удалось обработать загруженные изображения.";
       next(new HttpError(status, message));
       return;
