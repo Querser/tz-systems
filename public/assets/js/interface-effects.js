@@ -12,103 +12,11 @@ const logLines = [
   ">> Starting user interface...",
 ];
 
-const interactiveSelector = [
-  "a",
-  "button",
-  "input",
-  "textarea",
-  "select",
-  ".project-card",
-  ".graph-node",
-  '[role="button"]',
-  '[data-cursor="interactive"]',
-].join(",");
-
 function triggerGlitch(title, className, duration) {
   title.classList.remove(className);
   void title.offsetWidth;
   title.classList.add(className);
   window.setTimeout(() => title.classList.remove(className), duration);
-}
-
-/** Enables a performant crosshair cursor only for fine-pointer devices. */
-export function setupTechnicalCursor(reducedMotion) {
-  const finePointer = matchMedia("(pointer: fine)");
-  const cursor = document.querySelector("#technical-cursor");
-
-  if (!cursor || !finePointer.matches) {
-    return;
-  }
-
-  document.documentElement.classList.add("custom-cursor-enabled");
-  let currentX = -40;
-  let currentY = -40;
-  let targetX = -40;
-  let targetY = -40;
-  let frame = 0;
-  let activeGraphNode = null;
-
-  function renderCursor() {
-    const easing = reducedMotion ? 1 : 0.28;
-    currentX += (targetX - currentX) * easing;
-    currentY += (targetY - currentY) * easing;
-    cursor.style.setProperty("--cursor-screen-x", `${currentX.toFixed(2)}px`);
-    cursor.style.setProperty("--cursor-screen-y", `${currentY.toFixed(2)}px`);
-
-    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
-      frame = requestAnimationFrame(renderCursor);
-    } else {
-      frame = 0;
-    }
-  }
-
-  function requestCursorFrame() {
-    if (!frame) {
-      frame = requestAnimationFrame(renderCursor);
-    }
-  }
-
-  addEventListener(
-    "pointermove",
-    (event) => {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      const graphNode = event.target.closest(".graph-node");
-
-      if (graphNode !== activeGraphNode) {
-        activeGraphNode?.classList.remove("is-node-active");
-        graphNode?.classList.add("is-node-active");
-        activeGraphNode = graphNode;
-      }
-
-      cursor.classList.add("is-visible");
-      cursor.classList.toggle("is-interactive", Boolean(event.target.closest(interactiveSelector)));
-      requestCursorFrame();
-    },
-    { passive: true }
-  );
-
-  document.addEventListener("pointerout", (event) => {
-    cursor.classList.toggle(
-      "is-interactive",
-      Boolean(event.relatedTarget?.closest?.(interactiveSelector))
-    );
-  });
-  document.addEventListener("pointerdown", () => cursor.classList.add("is-pressed"));
-  document.addEventListener("pointerup", () => cursor.classList.remove("is-pressed"));
-  document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
-  addEventListener("blur", () => {
-    cursor.classList.remove("is-visible");
-    activeGraphNode?.classList.remove("is-node-active");
-    activeGraphNode = null;
-  });
-  addEventListener(
-    "pagehide",
-    () => {
-      if (frame) cancelAnimationFrame(frame);
-    },
-    { once: true }
-  );
 }
 
 /** Runs the kernel-style preloader, then assembles the Hero and schedules glitch bursts. */

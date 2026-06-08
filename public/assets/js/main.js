@@ -6,7 +6,7 @@ import {
 } from "./animations.js";
 import { setupHiddenAdminEntry } from "./admin-entry.js";
 import { setupPointerEffects } from "./effects.js";
-import { setupSystemInterface, setupTechnicalCursor } from "./interface-effects.js";
+import { setupSystemInterface } from "./interface-effects.js";
 import { setupMobileEffects } from "./mobile-effects.js";
 import { createProjectModal } from "./modal.js";
 import { loadProjects, renderProjectError, renderProjects } from "./projects.js";
@@ -28,7 +28,6 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let currentLanguage = getSavedLanguage();
 let projects = [];
 
-setupTechnicalCursor(reducedMotion);
 setupSystemInterface(reducedMotion);
 setupHiddenAdminEntry();
 

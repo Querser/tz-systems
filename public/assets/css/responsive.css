@@ -362,10 +362,6 @@
           transform: none;
         }
 
-        .technical-cursor.is-interactive .technical-cursor-ring {
-          animation: none;
-        }
-
         body.scroll-velocity-glitch main {
           transform: none;
           text-shadow: none;
